@@ -1,0 +1,104 @@
+function LCSubstr(S[1..m], T[1..n])
+    L := array(1..m, 1..n)
+    z := 0
+    ret := {}
+    for i := 1..m
+        for j := 1..n
+            if S[i] = T[j]
+                if i = 1 or j = 1
+                    L[i,j] := 1
+                else
+                    L[i,j] := L[i-1,j-1] + 1
+                if L[i,j] > z
+                    z := L[i,j]
+                    ret := {}
+                if L[i,j] = z
+                    ret := ret ? {S[i-z+1..z]}
+    return ret
+	
+InfixToPostfixConversion:
+    Scan the Infix string from left to right.
+    Initialise an empty stack.
+    If the scannned character is an operand, add it to the Postfix string. If the scanned character is an operator and if the stack is empty Push the character to stack.
+        If the scanned character is an Operator and the stack is not empty, compare the precedence of the character with the element on top of the stack (topStack). If topStack has higher precedence over the scanned character Pop the stack else Push the scanned character to stack. Repeat this step as long as stack is not empty and topStack has precedence over the character.
+    Repeat this step till all the characters are scanned.
+    (After all characters are scanned, we have to add any character that the stack may have to the Postfix string.) If stack is not empty add topStack to Postfix string and Pop the stack. Repeat this step as long as stack is not empty.
+    Return the Postfix string. 
+
+
+Converting infix to postfix
+
+1.	Set postfix string to empty string
+2.	Create an empty operator stack
+3.	Repeat
+    3.1	Get the next token in the infix string
+    3.2	If next token is an operand (begins with digit), append it to postfix string
+    3.3	If next token is an operator
+       3.3.1	Process the next operator 
+Until at the end of the string
+
+3.3.1	Process the next operator (next op)
+
+repeat 
+    If operator stack is empty, push next op onto stack.
+    Else if precedence(next op) > precedence(top operator)  
+           Push next op onto the stack  (ensures higher precedence operators evaluated first)
+    Else 
+         Pop the operator stack and append operator to postfix string
+Until next op is pushed onto the stack.
+
+3.3.1	Process the next operator (with parentheses)
+
+
+Set done to false
+Repeat
+   If operator stack is empty or next op is (, push next op onto stack and set done to true
+   Else if precedence(next op) > precedence(top operator)  
+           Push next op onto the stack  (ensures higher precedence operators evaluated first)
+	   and set done to true
+   Else 
+           Pop the operator stack 
+           If operator popped is (, set done to true 
+           Else append operator popped to postfix string
+Until done
+
+	
+Using 2 stacks you can evaluate an infix expression in 1 pass without converting to postfix first:
+
+Algorithm
+1.	Create an empty operator stack
+2.	Create an empty operand stack
+3.	Repeat
+    3.1	Get the next token in the infix string
+    3.2	If next token is an operand, place it on the operand stack
+    3.3	If next token is an operator
+           3.3.1	Evaluate the operator (next op)
+       Until at the end of the string
+4.	while operator stack is not empty
+pop operator and operands (left and right), 
+evaluate left operator right 
+and push result onto operand stack
+5.	Pop result from operator stack
+
+
+3.3.1	 Evaluate the operator (next op)
+
+Algorithm
+Set done to false
+Repeat
+     If operator stack is empty or next op is (, 
+          push next op onto stack and set done to true
+     Else if precedence(next op) > precedence(top operator)  
+          Push next op onto the stack  (ensures higher precedence operators evaluated first)
+          and set done to true
+     Else 
+           Pop the operator stack 
+           If operator popped is (, 
+                 set done to true.
+           Else 
+                 pop right and left from operand stack
+                 evaluate left operator right
+                 push result onto operand stack
+until done
+http://www.cs.wustl.edu/~schmidt/PDF/expression-trees4.pdf
+
