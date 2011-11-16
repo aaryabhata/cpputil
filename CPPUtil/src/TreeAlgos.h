@@ -2,7 +2,7 @@
  * TreeAlgos.h
  *
  *  Created on: Oct 29, 2011
- *      Author: vishnu
+ *      Author: Kamal
  */
 
 #ifndef TREEALGOS_H_
