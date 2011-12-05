@@ -105,6 +105,14 @@ char *url_decode(const char *str) {
   return buf;
 }
 
+/**
+ *
+ * The following function extracts the string between the nth brackets
+ * of a wellformed string with more than n brackets
+ *
+ *
+ */
+
 char* getNthBracketString(int n, const char* str){
 
 	char* ret = NULL;
