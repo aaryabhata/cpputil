@@ -94,7 +94,6 @@ int maxWindowOrderNWithLists(unsigned int* input, int size)
 {
     int i,j;
     int maxWindow = 0;
-
     
     list<unsigned int> iArr;  
     list<unsigned int> jArr;
